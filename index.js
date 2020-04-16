@@ -5,26 +5,13 @@ const createUrl = (keywordInputValue) => {
 	url = "https://www.omdbapi.com/?s=" + keywordInputValue + "&apikey=" + apiKey;
 };
 
-window.addEventListener("DOMContentLoaded", () => {
-	document
-		.querySelector(".addKeywordsForm")
-		.addEventListener("submit", (event) => {
-			event.preventDefault();
-			const keywordInputValue = document.querySelector("input[type='text']")
-				.value;
-			createUrl(keywordInputValue);
-			selector.innerHTML = "";
-			console.log(url);
-			requestSearch(url);
-		});
-});
-
 const requestSearch = (url) => {
 	fetch(url)
 		.then((response) => response.json())
 		.then((response) => {
 			ShowMovies(response.Search);
 		})
+		.then(() => addIntersectionObserver())
 		.catch((error) => console.error(error));
 };
 
@@ -32,7 +19,7 @@ let ShowMovies = (movies) => {
 	selector.innerHTML = "";
 	for (let i in movies) {
 		selector.innerHTML += `
-			<div class="d-flex row border rounded mb-3">
+			<div class="d-flex row border rounded mb-3 ">
 			<img class="img-thumbnail m-3" style="max-width: 8rem;" src="${movies[i].Poster}">
             <div class="card-body">
 				<h1 class="card-title">${movies[i].Title}</h1>
@@ -80,8 +67,39 @@ let showModal = (movie) => {
 	};
 };
 
-// let items = document.querySelectorAll(".row");
-// items.forEach(function (item) {
-// 	item.classList.add("not-visible");
-// 	IntersectionObserver.observe(item);
-// });
+//observers
+const addIntersectionObserver = () => {
+	let observer = new IntersectionObserver(
+		function (observables) {
+			observables.forEach(function (observable) {
+				if (observable.intersectionRatio > 0.5) {
+					observable.target.classList.remove("not-visible");
+				} else {
+					observable.target.classList.add("not-visible");
+				}
+			});
+		},
+		{
+			threshold: [0.5],
+		}
+	);
+	let items = document.querySelectorAll(".row");
+	items.forEach(function (item) {
+		item.classList.add("not-visible");
+		observer.observe(item);
+	});
+};
+///
+window.addEventListener("DOMContentLoaded", () => {
+	document
+		.querySelector(".addKeywordsForm")
+		.addEventListener("submit", (event) => {
+			event.preventDefault();
+			const keywordInputValue = document.querySelector("input[type='text']")
+				.value;
+			createUrl(keywordInputValue);
+			selector.innerHTML = "";
+			console.log(url);
+			requestSearch(url);
+		});
+});
