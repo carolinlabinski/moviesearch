@@ -1,7 +1,8 @@
+let apiKey = prompt("Type in your api key ?");
 var selector = document.getElementById("movie");
 
 const createUrl = (keywordInputValue) => {
-	url = "HTTPS://www.omdbapi.com/?s=" + keywordInputValue + "&apikey=798804bf";
+	url = "HTTPS://www.omdbapi.com/?s=" + keywordInputValue + "&apikey=" + apiKey;
 };
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -71,7 +72,7 @@ const Popup = () => {
 };
 
 const createUrlPlot = (imdbID) => {
-	URL = "HTTPS://www.omdbapi.com/?i=" + imdbID + "&apikey=798804bf";
+	URL = "HTTPS://www.omdbapi.com/?i=" + imdbID + "&apikey=" + apiKey;
 	console.log(URL);
 	fetchPlot(URL);
 };
@@ -102,8 +103,8 @@ const showModal = (response) => {
     `;
 };
 
-// let items = document.querySelectorAll(".box");
-// items.forEach(function (item) {
-// 	item.classList.add("not-visible");
-// 	IntersectionObserver.observe(item);
-// });
+let items = document.querySelectorAll(".row");
+items.forEach(function (item) {
+	item.classList.add("not-visible");
+	IntersectionObserver.observe(item);
+});
