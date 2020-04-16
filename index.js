@@ -1,7 +1,7 @@
 var selector = document.getElementById("movie");
 
 const createUrl = (keywordInputValue) => {
-	url = "https://www.omdbapi.com/?s=" + keywordInputValue + "&apikey=798804bf";
+	url = "HTTPS://www.omdbapi.com/?s=" + keywordInputValue + "&apikey=798804bf";
 };
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -38,13 +38,14 @@ const Loop = (response) => {
 
 const showMovies = (selector, Title, Year, Poster, imdbID) => {
 	selector.innerHTML += `
-        <div>
-            <h6>${Title} <h6> <p>${Year} <p>
-            <img src='${Poster}' alt=''width="130" height="150" />
-            <button class="btn btn-primary" id="myBtn" onclick="return Popup()">Read more</button
-            <br>
-            <br>
-        </div>
+			<div class="d-flex row border rounded mb-3">
+			<img class="img-thumbnail m-3" style="max-width: 8rem;" src="${Poster}">
+            <div class="card-body">
+				<h1 class="card-title">${Title}</h1>
+				<p class="card-text">${Year}</p>
+				<button type="button" class="btn btn-primary" onclick="return Popup()">Read More</button>
+			</div>
+		</div>
     `;
 	console.log(imdbID);
 	createUrlPlot(imdbID);
@@ -70,7 +71,7 @@ const Popup = () => {
 };
 
 const createUrlPlot = (imdbID) => {
-	URL = "https://www.omdbapi.com/?i=" + imdbID + "&apikey=798804bf";
+	URL = "HTTPS://www.omdbapi.com/?i=" + imdbID + "&apikey=798804bf";
 	console.log(URL);
 	fetchPlot(URL);
 };
@@ -94,9 +95,15 @@ const showModal = (response) => {
 	let moviePoster = response.Poster;
 	var content = document.getElementsByClassName("content")[0];
 	content.innerHTML = `
-            <hp>${movieTitle}<p>
-            <hp>${startYear}<p>
-            <hp>${plot}<p>
+           <div class="card-title">${movieTitle}</div>
+            <p>${startYear}<p>
+            <p>${plot}<p>
             <img src='${moviePoster}' alt=''width="130" height="150" />
     `;
 };
+
+// let items = document.querySelectorAll(".box");
+// items.forEach(function (item) {
+// 	item.classList.add("not-visible");
+// 	IntersectionObserver.observe(item);
+// });
