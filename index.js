@@ -1,7 +1,7 @@
 var selector = document.getElementById("movie");
 
 const createUrl = (keywordInputValue) => {
-	url = "http://www.omdbapi.com/?s=" + keywordInputValue + "&apikey=798804bf";
+	url = "https://www.omdbapi.com/?s=" + keywordInputValue + "&apikey=798804bf";
 };
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -70,7 +70,7 @@ const Popup = () => {
 };
 
 const createUrlPlot = (imdbID) => {
-	URL = "http://www.omdbapi.com/?i=" + imdbID + "&apikey=798804bf";
+	URL = "https://www.omdbapi.com/?i=" + imdbID + "&apikey=798804bf";
 	console.log(URL);
 	fetchPlot(URL);
 };
