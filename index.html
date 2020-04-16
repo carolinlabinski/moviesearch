@@ -1,0 +1,45 @@
+<html>
+	<head>
+		<title>Movie Search</title>
+		<link
+			rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+			crossorigin="anonymous"
+		/>
+		<link rel="stylesheet" href="index.css" />
+		<!-- <link rel="stylesheet" href="aos.css" /> -->
+	</head>
+	<body>
+		<meta charset="utf-8" />
+		<div class="fake-form">
+			<form class="addKeywordsForm">
+				<div class="inputKeywordsHandle">
+					<input type="text" />
+					<ul></ul>
+					<input type="submit" />
+				</div>
+			</form>
+			<!-- <section class="keywordsList"></section> -->
+		</div>
+		<br /><br />
+		<div class="container" id="movie" id="mymodal" data-aos="slide-up"></div>
+
+		<!-- <button id="myBtn">Open Modal</button> -->
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+				<span class="close">&times;</span>
+				<p class="content"></p>
+			</div>
+		</div>
+
+		<section class="articlesList"></section>
+		<script src="index.js"></script>
+		<!-- <script src="aos.js"></script>
+		<script>
+			AOS.init({
+				duration: 2000,
+			});
+		</script> -->
+	</body>
+</html>
