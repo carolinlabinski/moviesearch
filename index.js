@@ -13,6 +13,7 @@ window.addEventListener("DOMContentLoaded", () => {
 			const keywordInputValue = document.querySelector("input[type='text']")
 				.value;
 			createUrl(keywordInputValue);
+			selector.innerHTML = "";
 			console.log(url);
 			requestSearch(url);
 		});
@@ -28,7 +29,7 @@ const requestSearch = (url) => {
 		.then((response) => Loop(response))
 		.catch((error) => console.error(error));
 };
-selector.innerHTML = "";
+
 const Loop = (response) => {
 	for (let index = 0; index < response.Search.length; index++) {
 		let movie = response.Search[index];
