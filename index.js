@@ -2,7 +2,7 @@ let apiKey = prompt("Type in your api key ?");
 var selector = document.getElementById("movie");
 
 const createUrl = (keywordInputValue) => {
-	url = "HTTPS://www.omdbapi.com/?s=" + keywordInputValue + "&apikey=" + apiKey;
+	url = "https://www.omdbapi.com/?s=" + keywordInputValue + "&apikey=" + apiKey;
 };
 
 window.addEventListener("DOMContentLoaded", () => {
@@ -23,44 +23,52 @@ const requestSearch = (url) => {
 	fetch(url)
 		.then((response) => response.json())
 		.then((response) => {
-			console.log(response);
-			return response;
+			ShowMovies(response.Search);
 		})
-		.then((response) => Loop(response))
 		.catch((error) => console.error(error));
 };
 
-const Loop = (response) => {
-	for (let index = 0; index < response.Search.length; index++) {
-		let movie = response.Search[index];
-		console.log(movie);
-		showMovies(selector, movie.Title, movie.Year, movie.Poster, movie.imdbID);
-	}
-};
-
-const showMovies = (selector, Title, Year, Poster, imdbID) => {
-	selector.innerHTML += `
+let ShowMovies = (movies) => {
+	selector.innerHTML = "";
+	for (let i in movies) {
+		selector.innerHTML += `
 			<div class="d-flex row border rounded mb-3">
-			<img class="img-thumbnail m-3" style="max-width: 8rem;" src="${Poster}">
+			<img class="img-thumbnail m-3" style="max-width: 8rem;" src="${movies[i].Poster}">
             <div class="card-body">
-				<h1 class="card-title">${Title}</h1>
-				<p class="card-text">${Year}</p>
-				<button type="button" class="btn btn-primary" onclick="return Popup()">Read More</button>
+				<h1 class="card-title">${movies[i].Title}</h1>
+				<p class="card-text">${movies[i].Year}</p>
+				<p class="card-text">${movies[i].imdbID}</p>
+				<button type="button" class="btn btn-primary" onclick="return createUrlPlot('${movies[i].imdbID}')">Read More</button>
 			</div>
 		</div>
     `;
-	console.log(imdbID);
-	createUrlPlot(imdbID);
+	}
 };
 
 var modal = document.getElementById("myModal");
 var btn = document.getElementById("myBtn");
 var span = document.getElementsByClassName("close")[0];
+var btn = document.getElementById("myModal");
 
-const Popup = () => {
-	fetchPlot();
-	btn = document.getElementById("myModal");
+const createUrlPlot = (imdbID) => {
+	let URL = "https://www.omdbapi.com/?i=" + imdbID + "&apikey=" + apiKey;
+	fetch(URL)
+		.then((response) => response.json())
+		.then((response) => showModal(response))
+		.catch((error) => console.error(error));
+};
+
+let showModal = (movie) => {
+	var modal = document.getElementById("myModal");
 	modal.style.display = "block";
+	var content = document.getElementsByClassName("content")[0];
+	content.innerHTML = `
+           <div class="card-title">${movie.Title}</div>
+            <p>${movie.Year}<p>
+            <p>${movie.Plot}<p>
+            <img src='${movie.Poster}' alt=''width="130" height="150" />
+	`;
+
 	span.onclick = function () {
 		modal.style.display = "none";
 	};
@@ -72,40 +80,8 @@ const Popup = () => {
 	};
 };
 
-const createUrlPlot = (imdbID) => {
-	URL = "HTTPS://www.omdbapi.com/?i=" + imdbID + "&apikey=" + apiKey;
-	console.log(URL);
-	fetchPlot(URL);
-};
-
-const fetchPlot = (URL) => {
-	fetch(URL)
-		.then((response) => response.json())
-		.then((response) => {
-			console.log(response);
-			return response;
-		})
-		.then((response) => showModal(response))
-		.catch((error) => console.error(error));
-};
-
-const showModal = (response) => {
-	let plot = response.Plot;
-	console.log(plot);
-	let movieTitle = response.Title;
-	let startYear = response.Year;
-	let moviePoster = response.Poster;
-	var content = document.getElementsByClassName("content")[0];
-	content.innerHTML = `
-           <div class="card-title">${movieTitle}</div>
-            <p>${startYear}<p>
-            <p>${plot}<p>
-            <img src='${moviePoster}' alt=''width="130" height="150" />
-    `;
-};
-
-let items = document.querySelectorAll(".row");
-items.forEach(function (item) {
-	item.classList.add("not-visible");
-	IntersectionObserver.observe(item);
-});
+// let items = document.querySelectorAll(".row");
+// items.forEach(function (item) {
+// 	item.classList.add("not-visible");
+// 	IntersectionObserver.observe(item);
+// });
