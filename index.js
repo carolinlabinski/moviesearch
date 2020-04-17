@@ -1,4 +1,6 @@
-AOS.init();
+AOS.init({
+	duration: 2000,
+});
 let apiKey = prompt("Type in your api key ?");
 var selector = document.getElementById("movie");
 
@@ -20,12 +22,12 @@ let ShowMovies = (movies) => {
 	selector.innerHTML = "";
 	for (let i in movies) {
 		selector.innerHTML += `
-			<div class="d-flex row border rounded mb-3 ">
+			<div class="d-flex row border rounded mb-3" data-aos="fade-up-right">
 			<img class="img-thumbnail m-3" style="max-width: 8rem;" src="${movies[i].Poster}">
             <div class="card-body">
 				<h1 class="card-title">${movies[i].Title}</h1>
 				<p class="card-text">${movies[i].Year}</p>
-				<button type="button" class="btn btn-primary" onclick="return createUrlPlot('${movies[i].imdbID}')">Read More</button>
+				<button type="button" class="btn btn-dark" onclick="return createUrlPlot('${movies[i].imdbID}')">Read More</button>
 			</div>
 		</div>
     `;
@@ -50,10 +52,12 @@ let showModal = (movie) => {
 	modal.style.display = "block";
 	var content = document.getElementsByClassName("content")[0];
 	content.innerHTML = `
-           <div class="card-title">${movie.Title}</div>
+	<div data-aos="fade-up">
+           <div class="card-title"> <h3>${movie.Title.toUpperCase()}<h3></div>
             <p>${movie.Year}<p>
-            <p>${movie.Plot}<p>
-            <img src='${movie.Poster}' alt=''width="130" height="150" />
+			<img src='${movie.Poster}' alt=''width="130" height="150" />
+			<p>${movie.Plot}<p>
+		<div>
 	`;
 
 	span.onclick = function () {

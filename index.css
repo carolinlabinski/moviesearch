@@ -8,7 +8,6 @@
 	opacity: 0;
 }
 
-
 /* The Modal (background) */
 .modal {
 	display: none; /* Hidden by default */
@@ -52,6 +51,11 @@
 	padding: 0;
 	box-sizing: content-box;
 }
+
+.border {
+	border: 2px solid #c9c9c9;
+	border-radius: 3em;
+  }
 
 body {
 	width: 80vw;
@@ -126,7 +130,7 @@ body {
 	height: 30px;
 	margin-left: 30px;
 	width: 200px;
-	background: #560ab9cb;
+	background: #e60228cb;
 	color: white;
 	cursor: pointer;
 }
