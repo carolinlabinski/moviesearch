@@ -1,3 +1,4 @@
+AOS.init();
 let apiKey = prompt("Type in your api key ?");
 var selector = document.getElementById("movie");
 
@@ -24,7 +25,6 @@ let ShowMovies = (movies) => {
             <div class="card-body">
 				<h1 class="card-title">${movies[i].Title}</h1>
 				<p class="card-text">${movies[i].Year}</p>
-				<p class="card-text">${movies[i].imdbID}</p>
 				<button type="button" class="btn btn-primary" onclick="return createUrlPlot('${movies[i].imdbID}')">Read More</button>
 			</div>
 		</div>
